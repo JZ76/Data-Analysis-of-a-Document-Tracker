@@ -8,6 +8,7 @@ __author__ = "Jiancheng Zhang and Haoran Hong"
 import sys
 import getopt
 import os
+import re
 
 
 def help():
@@ -34,7 +35,7 @@ if __name__ == "__main__":
                 args_list[0] = opt_value
             elif opt_name in ('-d', '--docID'):
                 args_list[1] = opt_value
-            elif opt_name in ('-t', '--task'):
+            elif opt_name in ('-t', '--taskID'):
                 if opt_value in ('2a', '2b', '3a', '3b', '4', '5d', '6', '7'):
                     task_id = opt_value
                 else:
@@ -43,8 +44,14 @@ if __name__ == "__main__":
             elif opt_name in ('-f', '--filename'):
                 file_exists = os.path.isfile(opt_value)
                 if file_exists:
-                    fileName = opt_value
-                    print(opt_value)
+                    pattern = re.compile(r'\.json\Z')
+                    t = pattern.search(opt_value)
+                    if t is not None:
+                        fileName = opt_value
+                        print(opt_value)
+                    else:
+                        print("Wrong file type:", opt_value, "not a json file.")
+                        exit()
                 else:
                     print("Cannot find file", opt_value, "because it does not exist.")
                     exit()
@@ -80,3 +87,4 @@ if __name__ == "__main__":
     except getopt.GetoptError as error:
         print(error, "\n")
         help()
+        sys.exit(2)
