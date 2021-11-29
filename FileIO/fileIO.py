@@ -20,8 +20,8 @@ def chunks(filename, size=1000):
                 chunk = []
 
         yield chunk
-    except file.errors as error:
+    except IOError:
         print("Cannot open the file ", filename)
-        print(error)
+        print(IOError)
     finally:
         file.close()

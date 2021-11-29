@@ -9,7 +9,7 @@ import sys
 import getopt
 import os
 import re
-
+from Task2 import t2
 
 def help():
     print("###########################################################################################\n")
@@ -28,13 +28,14 @@ if __name__ == "__main__":
         opts, args = getopt.getopt(sys.argv[1:], 'u:d:t:f:hq',
                                    ['userID=', 'docID=', 'taskID=', 'filename=', 'help', 'quit'])
         fileName = ""
-        args_list = [0] * 2
+        userID = 0
+        docID = 0
         task_id = 0
         for opt_name, opt_value in opts:
             if opt_name in ('-u', '--userID'):
-                args_list[0] = opt_value
+                userID = opt_value
             elif opt_name in ('-d', '--docID'):
-                args_list[1] = opt_value
+                docID = opt_value
             elif opt_name in ('-t', '--taskID'):
                 if opt_value in ('2a', '2b', '3a', '3b', '4', '5d', '6', '7'):
                     task_id = opt_value
@@ -47,8 +48,7 @@ if __name__ == "__main__":
                     pattern = re.compile(r'\.json\Z')
                     t = pattern.search(opt_value)
                     if t is not None:
-                        fileName = opt_value
-                        print(opt_value)
+                        fileName = os.path.abspath(opt_value)
                     else:
                         print("Wrong file type:", opt_value, "not a json file.")
                         exit()
@@ -70,6 +70,7 @@ if __name__ == "__main__":
         if task_id == "2a":
             print(task_id)
         elif task_id == "2b":
+            t2.view_by_continent(userID,docID,fileName)
             print(task_id)
         elif task_id == "3a":
             print(task_id)
