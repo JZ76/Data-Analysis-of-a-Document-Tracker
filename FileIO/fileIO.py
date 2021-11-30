@@ -6,7 +6,7 @@
 import json
 
 
-def chunks(filename, size=1000):
+def chunks(filename, size=100000):
     count = 0
     chunk = []
     try:
@@ -18,8 +18,8 @@ def chunks(filename, size=1000):
                 yield chunk
                 count = 0
                 chunk = []
-
-        yield chunk
+        if len(chunk)!=0:
+            yield chunk
     except IOError:
         print("Cannot open the file ", filename)
         print(IOError)
