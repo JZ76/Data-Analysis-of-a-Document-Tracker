@@ -2,25 +2,14 @@
 # -*- coding: utf-8 -*-
 
 """ task2 """
-import os
-from functools import wraps
 
+
+import os
 from FileIO import fileIO as fio
 from ThreadPool import threadpool as tp
 import pandas as pd
-from matplotlib import pyplot as plt
+from Plot_Barchart import plot
 
-def plot_histogram(func):
-    @wraps(func)
-    def wrap_function(*args, **kwargs):
-        results = func(*args, **kwargs)
-        plt.bar(list(results.keys()), list(results.values()), 0.6, align='center')
-        plt.title('Views by country')
-        plt.ylabel('Counts')
-        plt.xlabel('countries')
-        plt.show()
-
-    return wrap_function
 
 def process_method(docID, data, result):
     dicts = filter(lambda x: x.get("event_type", "") == "read" and x.get("subject_doc_id", "") == docID, data)
@@ -33,12 +22,12 @@ def feed_json_into_Threadpool(userID, docID, filename):
         tp.threadpool_execute(docID, chunk, process_method, result)
     return result
 
-@ plot_histogram
+@ plot.plot_histogram
 def view_by_country(userID, docID, filename):
     results = feed_json_into_Threadpool(userID, docID, filename)
     return results
 
-@ plot_histogram
+@ plot.plot_histogram
 def view_by_continent(userID, docID, filename):
     table = pd.read_csv(os.path.abspath(r"Task2\all.csv"))
     country_to_continent = table.set_index('alpha-2')['region'].to_dict()
