@@ -68,10 +68,9 @@ if __name__ == "__main__":
             print("No given task ID!")
             exit()
         if task_id == "2a":
-            print(task_id)
+            t2.view_by_country(userID, docID, fileName)
         elif task_id == "2b":
-            t2.view_by_continent(userID,docID,fileName)
-            print(task_id)
+            t2.view_by_continent(userID, docID, fileName)
         elif task_id == "3a":
             print(task_id)
         elif task_id == "3b":
