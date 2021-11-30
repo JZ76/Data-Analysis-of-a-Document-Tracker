@@ -14,7 +14,7 @@ def plot_histogram(func):
         results = func(*args, **kwargs)
         plt.bar(list(results.keys()), list(results.values()), 0.6, align='center')
         plt.title(func.__name__)
+        print("Duration: ", time.time() - start_time)
         plt.show()
-        print("Duration: ", time.time()-start_time)
 
     return wrap_function

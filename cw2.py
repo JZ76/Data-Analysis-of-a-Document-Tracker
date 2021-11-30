@@ -11,6 +11,8 @@ import os
 import re
 from Task2 import t2
 
+from Task4 import t4
+
 def help():
     print("###########################################################################################\n")
     print("options:")
@@ -68,15 +70,16 @@ if __name__ == "__main__":
             print("No given task ID!")
             exit()
         if task_id == "2a":
-            t2.view_by_country(userID, docID, fileName)
+            t2.view_by_country(docID, fileName)
         elif task_id == "2b":
-            t2.view_by_continent(userID, docID, fileName)
+            t2.view_by_continent(docID, fileName)
         elif task_id == "3a":
             print(task_id)
         elif task_id == "3b":
             print(task_id)
         elif task_id == "4":
-            print(task_id)
+            t4.top_10_reader(fileName)
+
         elif task_id == "5d":
             print(task_id)
         elif task_id == "6":

@@ -3,17 +3,18 @@
 
 """ threadpool """
 
+
+import threading
 from concurrent.futures import ThreadPoolExecutor
-from itertools import repeat
 
 
 def threadpool_execute(docID, dataset, func, result):
+    remain = len(dataset) % 8
+    lock = threading.RLock()
+    args = ((lock, docID, dataset[i:i + len(dataset) // 8], result)
+            for i in range(0, len(dataset), len(dataset) // 8))
     with ThreadPoolExecutor() as executor:
-        remain = len(dataset) % 8
         if remain == 0:
-            executor.map(func,
-                         repeat(docID),
-                         [dataset[i:i + len(dataset) // 8] for i in range(0, len(dataset) - len(dataset) // 8, len(dataset) // 8)],
-                         repeat(result))
+            executor.map(lambda f: func(*f), args)
         else:
-            executor.submit(func, [docID, dataset, result])
+            executor.submit(func, (lock, docID, dataset, result))

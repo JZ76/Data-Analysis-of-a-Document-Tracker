@@ -4,36 +4,32 @@
 """ task2 """
 
 import os
-from FileIO import fileIO as fio
-from ThreadPool import threadpool as tp
+from Feed_ThreadPool import feed_json_threadpool
+
+
 import pandas as pd
 from Plot_Barchart import plot
 
 
-def process_method(docID, data, result):
+def process_method(lock, docID, data, result):
     dicts = filter(lambda x: x.get("event_type", "") == "read" and x.get("subject_doc_id", "") == docID, data)
     for dict in dicts:
+        lock.acquire()
         result[dict.get("visitor_country")] = result.get(dict.get("visitor_country"), 0) + 1
-
-
-def feed_json_into_Threadpool(userID, docID, filename):
-    result = {}
-    for chunk in fio.chunks(filename):
-        tp.threadpool_execute(docID, chunk, process_method, result)
-    return result
+        lock.release()
 
 
 @plot.plot_histogram
-def view_by_country(userID, docID, filename):
-    results = feed_json_into_Threadpool(userID, docID, filename)
+def view_by_country(docID, filename):
+    results = feed_json_threadpool.feed_json_into_Threadpool(0, docID, filename, process_method)
     return results
 
 
 @plot.plot_histogram
-def view_by_continent(userID, docID, filename):
-    table = pd.read_csv(os.path.abspath(r"all.csv"))
+def view_by_continent(docID, filename):
+    table = pd.read_csv(os.path.abspath(r"Task2\all.csv"))
     country_to_continent = table.set_index('alpha-2')['region'].to_dict()
-    results = feed_json_into_Threadpool(userID, docID, filename)
+    results = feed_json_threadpool.feed_json_into_Threadpool(0, docID, filename, process_method)
     new_results = {}
     for x in results:
         new_results[country_to_continent.get(x)] = results.get(x)
@@ -42,6 +38,5 @@ def view_by_continent(userID, docID, filename):
 
 
 if __name__ == "__main__":
-    view_by_country(0,
-                      "140310170010-0000000067dc80801f1df696ae52862b",
+    view_by_continent("140310170010-0000000067dc80801f1df696ae52862b",
                       r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_400k_lines.json")

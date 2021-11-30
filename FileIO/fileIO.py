@@ -18,7 +18,7 @@ def chunks(filename, size=100000):
                 yield chunk
                 count = 0
                 chunk = []
-        if len(chunk)!=0:
+        if len(chunk) != 0:
             yield chunk
     except IOError:
         print("Cannot open the file ", filename)
