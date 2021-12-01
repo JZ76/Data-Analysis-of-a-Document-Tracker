@@ -5,8 +5,6 @@
 
 import os
 from Feed_ThreadPool import feed_json_threadpool
-
-
 import pandas as pd
 from Plot_Barchart import plot
 

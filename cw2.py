@@ -10,7 +10,7 @@ import getopt
 import os
 import re
 from Task2 import t2
-
+from Task3 import t3
 from Task4 import t4
 
 def help():
@@ -74,9 +74,9 @@ if __name__ == "__main__":
         elif task_id == "2b":
             t2.view_by_continent(docID, fileName)
         elif task_id == "3a":
-            print(task_id)
+            t3.view_by_browser_all(fileName)
         elif task_id == "3b":
-            print(task_id)
+            t3.view_by_browser(fileName)
         elif task_id == "4":
             t4.top_10_reader(fileName)
 
