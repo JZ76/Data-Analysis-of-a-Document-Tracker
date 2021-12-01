@@ -69,4 +69,4 @@ def view_by_browser(filename):
 
 if __name__ == "__main__":
     view_by_browser(
-        r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_3m_lines.json")
+        r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\issuu_cw2.json")

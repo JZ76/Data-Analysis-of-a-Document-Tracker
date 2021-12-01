@@ -25,7 +25,7 @@ def view_by_country(docID, filename):
 
 @plot.plot_histogram
 def view_by_continent(docID, filename):
-    table = pd.read_csv(os.path.abspath(r"Task2\all.csv"))
+    table = pd.read_csv(os.path.abspath(r"all.csv"))
     country_to_continent = table.set_index('alpha-2')['region'].to_dict()
     results = feed_json_threadpool.feed_json_into_Threadpool(0, docID, filename, process_method)
     new_results = {}
@@ -36,5 +36,5 @@ def view_by_continent(docID, filename):
 
 
 if __name__ == "__main__":
-    view_by_continent("140310170010-0000000067dc80801f1df696ae52862b",
-                      r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_400k_lines.json")
+    view_by_continent("140218134226-85827c1f2cec7cde188f60901c23558d",
+                      r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\issuu_cw2.json")
