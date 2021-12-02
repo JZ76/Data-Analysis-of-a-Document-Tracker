@@ -19,7 +19,7 @@ def process_method(lock, userID, docID, data, result):
 def top_10_reader(filename):
     start_time = time.time()
     result = feed_json_threadpool.feed_json_into_Threadpool(0, 0, filename, process_method)
-    print(time.time() - start_time)
+    print("\nAnalyzing data duration(s):", time.time() - start_time)
     start_time = time.time()
     top_10 = PriorityQueue(10)
     for x in result:
@@ -31,10 +31,12 @@ def top_10_reader(filename):
                 top_10.put([result.get(x), x])
             else:
                 top_10.put(temp)
+    i = 10
     while not top_10.empty():
         temp = top_10.get()
-        print("User:", temp[1], "\tReading time (mins):", temp[0]/60000)
-    print(time.time() - start_time)
+        print("Ranking:", str(i), "\tUser:", temp[1], "\tReading time (mins):", temp[0]/60000)
+        i = i - 1
+    print("Sorting data duration(s):", time.time() - start_time)
 
 
 if __name__ == "__main__":

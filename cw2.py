@@ -81,9 +81,9 @@ if __name__ == "__main__":
         elif task_id == "4":
             t4.top_10_reader(fileName)
         elif task_id == "5d":
-            t5.also_likes(userID, docID, fileName)
+            t5.alsolikes_sorted(userID, docID, fileName)
         elif task_id == "6":
-            print(task_id)
+            t5.generate_graph(userID, docID, fileName)
         elif task_id == "7":
             print(task_id)
 

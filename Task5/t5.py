@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """ task5 """
+
 from queue import PriorityQueue
 from Task6.t6 import alsolikes_graph
 from Feed_ThreadPool import feed_json_threadpool
@@ -40,14 +41,15 @@ def top_10_alsoliked(docID, result):
                 top_10.put([count.get(x), x])
             else:
                 top_10.put(temp)
+    i = 10
     while not top_10.empty():
         temp = top_10.get()
-        answer.append("Document ID: " + temp[1] + "\tNumber of readers: " + str(temp[0]))
+        answer.append("Ranking:" + str(i) + "\tDocument ID: " + temp[1] + "\tNumber of readers: " + str(temp[0]))
+        i = i -1
     return answer
 
 
-@alsolikes_graph
-def also_likes(userID, docID, filename, sort_func=top_10_alsoliked):
+def also_likes(userID, docID, filename):
     global user_set
     results = feed_json_threadpool.feed_json_into_Threadpool(userID, docID, filename, process_method)
     if not (userID in user_set):
@@ -56,12 +58,20 @@ def also_likes(userID, docID, filename, sort_func=top_10_alsoliked):
     for u in user_set:
         new_results[u] = results.get(u)
     del results
-    list = sort_func(docID, new_results)
-    print("Sorted liked documents: ")
-    print("\n".join(str(x) for x in list))
     return new_results
 
 
+def alsolikes_sorted(userID, docID, filename, sort_func=top_10_alsoliked):
+    new_results = also_likes(userID, docID, filename)
+    list = sort_func(docID, new_results)
+    print("Sorted liked documents: ")
+    print("\n".join(str(x) for x in list))
+
+
+@alsolikes_graph
+def generate_graph(userID, docID, filename):
+    return also_likes(userID, docID, filename)
+
 if __name__ == "__main__":
-    also_likes(0, "140109173556-a4b921ab7619621709b098aa9de4d736",
-               r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_3m_lines.json")
+    generate_graph("4065369dbee2b902", "140310170010-0000000067dc80801f1df696ae52862b",
+               r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_400k_lines.json")

@@ -28,13 +28,27 @@ def alsolikes_graph(func):
         results = func(*args, **kwargs)
         spinning.join()
         print("\nAnalyzing data duration(s):", time.time() - start_time)
-        w = graphviz.Digraph('wide')
+
+        w = graphviz.Digraph(filename='Also_likes.dot', format="ps")
         start_time = time.time()
         for x in results:
+            if x == args[0]:
+                w.node(x[-4:], shape='box', style='filled', fillcolor='#808080', fontcolor='red')
+            else:
+                w.node(x[-4:], shape='box')
+
             for d in results.get(x):
-                w.edge(x, d)
+                if d == args[1]:
+                    w.node(d[-4:], style='filled', fillcolor='#808080', fontcolor='red')
+                else:
+                    w.node(d[-4:])
+
+                w.edge(x[-4:], d[-4:])
 
         w.view()
         print("Plotting data duration(s):", time.time() - start_time)
 
     return wrap_function
+
+if __name__=="__main__":
+    graphviz.render('dot', 'pdf', r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\Task5\Also_likes.dot")
