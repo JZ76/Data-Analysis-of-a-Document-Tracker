@@ -8,7 +8,7 @@ from queue import PriorityQueue
 import time
 
 
-def process_method(lock, userID, data, result):
+def process_method(lock, userID, docID, data, result):
     dicts = filter(lambda x: x.get("event_type", "") == "pagereadtime", data)
     for dict in dicts:
         lock.acquire()

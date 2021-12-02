@@ -10,7 +10,7 @@ def chunks(filename, size=100000):
     count = 0
     chunk = []
     try:
-        file = open(filename, 'r')
+        file = open(filename, 'r', encoding='utf8')
         for line in file.readlines():
             count = count + 1
             chunk.append(json.loads(line))

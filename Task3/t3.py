@@ -38,7 +38,8 @@ def extract_browser(string):
         answer = "Other"
     return answer
 
-def process_method_all(lock, docID, data, result):
+
+def process_method_all(lock, userID, docID, data, result):
     dicts = filter(lambda x: x.get("event_type", "") == "read", data)
     for dict in dicts:
         lock.acquire()
@@ -46,7 +47,7 @@ def process_method_all(lock, docID, data, result):
         lock.release()
 
 
-def process_method(lock, docID, data, result):
+def process_method(lock, userID, docID, data, result):
     dicts = filter(lambda x: x.get("event_type", "") == "read", data)
     for dict in dicts:
         lock.acquire()

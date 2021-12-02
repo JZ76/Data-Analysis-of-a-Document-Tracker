@@ -12,6 +12,7 @@ import re
 from Task2 import t2
 from Task3 import t3
 from Task4 import t4
+from Task5 import t5
 
 def help():
     print("###########################################################################################\n")
@@ -79,9 +80,8 @@ if __name__ == "__main__":
             t3.view_by_browser(fileName)
         elif task_id == "4":
             t4.top_10_reader(fileName)
-
         elif task_id == "5d":
-            print(task_id)
+            t5.also_likes(userID, docID, fileName)
         elif task_id == "6":
             print(task_id)
         elif task_id == "7":

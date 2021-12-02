@@ -10,5 +10,5 @@ from ThreadPool import threadpool as tp
 def feed_json_into_Threadpool(userID, docID, filename, process_method):
     result = {}
     for chunk in fio.chunks(filename):
-        tp.threadpool_execute(docID, chunk, process_method, result)
+        tp.threadpool_execute(userID, docID, chunk, process_method, result)
     return result
