@@ -33,13 +33,13 @@ def alsolikes_graph(func):
         start_time = time.time()
         for x in results:
             if x == args[0]:
-                w.node(x[-4:], shape='box', style='filled', fillcolor='#808080', fontcolor='red')
+                w.node(x[-4:], shape='box', style='filled', fillcolor='green', fontcolor='black')
             else:
                 w.node(x[-4:], shape='box')
 
             for d in results.get(x):
                 if d == args[1]:
-                    w.node(d[-4:], style='filled', fillcolor='#808080', fontcolor='red')
+                    w.node(d[-4:], style='filled', fillcolor='green', fontcolor='black')
                 else:
                     w.node(d[-4:])
 

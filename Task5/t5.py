@@ -41,11 +41,11 @@ def top_10_alsoliked(docID, result):
                 top_10.put([count.get(x), x])
             else:
                 top_10.put(temp)
-    i = 10
+    i = top_10.qsize()
     while not top_10.empty():
         temp = top_10.get()
         answer.append("Ranking:" + str(i) + "\tDocument ID: " + temp[1] + "\tNumber of readers: " + str(temp[0]))
-        i = i -1
+        i = i - 1
     return answer
 
 
@@ -73,5 +73,5 @@ def generate_graph(userID, docID, filename):
     return also_likes(userID, docID, filename)
 
 if __name__ == "__main__":
-    generate_graph("4065369dbee2b902", "140310170010-0000000067dc80801f1df696ae52862b",
+    alsolikes_sorted("4065369dbee2b902", "140310170010-0000000067dc80801f1df696ae52862b",
                r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_400k_lines.json")
