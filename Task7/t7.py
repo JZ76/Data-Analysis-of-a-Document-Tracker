@@ -1,4 +1,3 @@
-
 import tkinter as tk
 from tkinter import *
 from Task2 import t2
@@ -6,6 +5,7 @@ from Task3 import t3
 from Task4 import t4
 from Task5 import t5
 import threading
+
 button_row_number = 8
 
 
@@ -16,6 +16,7 @@ def click_country():
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
     if (input_textbox1.get() and input_textbox2.get()):
+        processing()
         t2.view_by_country(input_textbox2.get(), input_textbox1.get())
 
 
@@ -26,38 +27,43 @@ def click_continent():
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
     if (input_textbox1.get() and input_textbox2.get()):
+        processing()
         t2.view_by_continent(input_textbox2.get(), input_textbox1.get())
-
-
 
 def click_all_browser():
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
     else:
+        processing()
         t3.view_by_browser_all(input_textbox1.get())
-
 
 def click_main_browser():
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
     else:
+        processing()
         t3.view_by_browser(input_textbox1.get())
+        display_textbox.delete(0.0, END)
 
 def __display_top_10(filename):
     display(t4.top_10_reader(filename))
+
 
 def click_top10():
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
     else:
+        processing()
         temp = threading.Thread(target=__display_top_10, args=[input_textbox1.get()])
         temp.start()
 
+
 def __display_alsolikes(userID, docID, filename):
     display(t5.alsolikes_sorted(userID, docID, filename))
+
 
 def click_also_likes():
     display_textbox.delete(0.0, END)
@@ -67,9 +73,12 @@ def click_also_likes():
         display_textbox.insert(END, "No doc ID entered\n")
 
     if (input_textbox1.get() and input_textbox2.get() and input_textbox3.get()):
-        temp = threading.Thread(target=__display_alsolikes, args=[input_textbox3.get(), input_textbox2.get(), input_textbox1.get()])
+        processing()
+        temp = threading.Thread(target=__display_alsolikes,
+                                args=[input_textbox3.get(), input_textbox2.get(), input_textbox1.get()])
         temp.start()
     elif (input_textbox1.get() and input_textbox2.get()):
+        processing()
         temp = threading.Thread(target=__display_alsolikes, args=["0", input_textbox2.get(), input_textbox1.get()])
         temp.start()
 
@@ -82,23 +91,30 @@ def click_also_likes_graph():
         display_textbox.insert(END, "No doc ID entered\n")
 
     if (input_textbox1.get() and input_textbox2.get() and input_textbox3.get()):
-        temp = threading.Thread(target=t5.generate_graph, args=(input_textbox3.get(), input_textbox2.get(), input_textbox1.get()))
+        processing()
+        temp = threading.Thread(target=t5.generate_graph,
+                                args=(input_textbox3.get(), input_textbox2.get(), input_textbox1.get()))
         temp.start()
     elif (input_textbox1.get() and input_textbox2.get()):
+        processing()
         temp = threading.Thread(target=t5.generate_graph, args=("0", input_textbox2.get(), input_textbox1.get()))
         temp.start()
 
 def display(result):
     display_textbox.insert(END, result)
 
+def processing():
+    display_textbox.insert(END, "Processing request...\n\n")
 
 
 def window_close():
     window.destroy()
     exit()
 
-def GUI(fileID, userID, docID):
 
+
+
+def GUI(fileID, userID, docID):
     global file_ID
     global user_ID
     global doc_ID
@@ -112,9 +128,9 @@ def GUI(fileID, userID, docID):
     window.configure(bg="black")
     window.geometry("1000x700")
 
-
     Label(window, text="Enter JSON file name:", bg="black", fg="white", font="none 12 bold").grid(row=1, column=0,
-                                                                                                  columnspan=2, sticky=W)
+                                                                                                  columnspan=2,
+                                                                                                  sticky=W)
     global input_textbox1
     input_textbox1 = Entry(window, width=50, bg="white")
     input_textbox1.grid(row=2, column=0, columnspan=3, sticky=W)
@@ -127,7 +143,8 @@ def GUI(fileID, userID, docID):
     input_textbox2.grid(row=4, columnspan=3, sticky=W)
     input_textbox2.insert(0, docID)
 
-    Label(window, text="Enter User ID:", bg="black", fg="white", font="none 12 bold").grid(row=5, column=0, columnspan=2, sticky=W)
+    Label(window, text="Enter User ID:", bg="black", fg="white", font="none 12 bold").grid(row=5, column=0,
+                                                                                           columnspan=2, sticky=W)
 
     global input_textbox3
     input_textbox3 = Entry(window, width=50, bg="white")
@@ -152,10 +169,12 @@ def GUI(fileID, userID, docID):
 
     Button(window, text="Top 10 Readers", width=14, command=click_top10).grid(row=button_row_number, column=4, sticky=W)
 
-    Button(window, text="Also Likes", width=14, command=click_also_likes).grid(row=button_row_number, column=5, sticky=W)
+    Button(window, text="Also Likes", width=14, command=click_also_likes).grid(row=button_row_number, column=5,
+                                                                               sticky=W)
 
-    Button(window, text="Also Likes Graph", width=14, command=click_also_likes_graph).grid(row=button_row_number, column=6,
-                                                                                 sticky=W)
+    Button(window, text="Also Likes Graph", width=14, command=click_also_likes_graph).grid(row=button_row_number,
+                                                                                           column=6,
+                                                                                           sticky=W)
 
     Button(window, text="Help", width=14).grid(row=11, column=0, sticky=W)
 
@@ -167,5 +186,6 @@ def GUI(fileID, userID, docID):
 
     window.mainloop()
 
-if __name__=="__main__":
+
+if __name__ == "__main__":
     GUI()
