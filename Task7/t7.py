@@ -16,8 +16,8 @@ def click_country():
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
     if (input_textbox1.get() and input_textbox2.get()):
-        processing()
         t2.view_by_country(input_textbox2.get(), input_textbox1.get())
+
 
 
 def click_continent():
@@ -27,7 +27,6 @@ def click_continent():
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
     if (input_textbox1.get() and input_textbox2.get()):
-        processing()
         t2.view_by_continent(input_textbox2.get(), input_textbox1.get())
 
 def click_all_browser():
@@ -35,7 +34,6 @@ def click_all_browser():
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
     else:
-        processing()
         t3.view_by_browser_all(input_textbox1.get())
 
 def click_main_browser():
@@ -43,9 +41,7 @@ def click_main_browser():
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
     else:
-        processing()
         t3.view_by_browser(input_textbox1.get())
-        display_textbox.delete(0.0, END)
 
 def __display_top_10(filename):
     display(t4.top_10_reader(filename))
@@ -56,10 +52,9 @@ def click_top10():
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
     else:
-        processing()
+        processing_msg()
         temp = threading.Thread(target=__display_top_10, args=[input_textbox1.get()])
         temp.start()
-
 
 def __display_alsolikes(userID, docID, filename):
     display(t5.alsolikes_sorted(userID, docID, filename))
@@ -73,12 +68,12 @@ def click_also_likes():
         display_textbox.insert(END, "No doc ID entered\n")
 
     if (input_textbox1.get() and input_textbox2.get() and input_textbox3.get()):
-        processing()
+        processing_msg()
         temp = threading.Thread(target=__display_alsolikes,
                                 args=[input_textbox3.get(), input_textbox2.get(), input_textbox1.get()])
         temp.start()
     elif (input_textbox1.get() and input_textbox2.get()):
-        processing()
+        processing_msg()
         temp = threading.Thread(target=__display_alsolikes, args=["0", input_textbox2.get(), input_textbox1.get()])
         temp.start()
 
@@ -91,21 +86,29 @@ def click_also_likes_graph():
         display_textbox.insert(END, "No doc ID entered\n")
 
     if (input_textbox1.get() and input_textbox2.get() and input_textbox3.get()):
-        processing()
+        processing_msg()
         temp = threading.Thread(target=t5.generate_graph,
                                 args=(input_textbox3.get(), input_textbox2.get(), input_textbox1.get()))
         temp.start()
     elif (input_textbox1.get() and input_textbox2.get()):
-        processing()
+        processing_msg()
         temp = threading.Thread(target=t5.generate_graph, args=("0", input_textbox2.get(), input_textbox1.get()))
         temp.start()
 
 def display(result):
     display_textbox.insert(END, result)
 
-def processing():
+def processing_msg():
     display_textbox.insert(END, "Processing request...\n\n")
 
+def complete_msg():
+    display_textbox.insert(END, "Request complete\n\n")
+
+def message():
+    display_textbox.delete(0.0, END)
+    msg = "To use the document track: \n1. Enter the the JSON file path, document ID and use ID (if applicable) " \
+          "in the text boxes above. \n2. Then select an search option to process."
+    display_textbox.insert(END, msg)
 
 def window_close():
     window.destroy()
@@ -128,7 +131,7 @@ def GUI(fileID, userID, docID):
     window.configure(bg="black")
     window.geometry("1000x600")
 
-    Label(window, text="Enter JSON file name:", bg="black", fg="white", font="none 12 bold").grid(row=1, column=0,
+    Label(window, text="Enter JSON file path:", bg="black", fg="white", font="none 12 bold").grid(row=1, column=0,
                                                                                                   columnspan=2,
                                                                                                   sticky=W)
     global input_textbox1
@@ -176,13 +179,17 @@ def GUI(fileID, userID, docID):
                                                                                            column=6,
                                                                                            sticky=W)
 
-    Button(window, text="Help", width=14).grid(row=11, column=0, sticky=W)
+    Button(window, text="Help", width=14, command=message).grid(row=11, column=0, sticky=W)
 
     Button(window, text="Exit", width=14, command=window_close).grid(row=11, column=1, sticky=W)
 
     global display_textbox
     display_textbox = Text(window, width=125, height=20, wrap=WORD, bg="white")
     display_textbox.grid(row=10, column=0, columnspan=10, sticky=W)
+
+    message()
+
+    click_also_likes_graph()
 
     window.mainloop()
 
