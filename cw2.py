@@ -86,7 +86,7 @@ if __name__ == "__main__":
         elif task_id == "6":
             t5.generate_graph(userID, docID, fileName)
         elif task_id == "7":
-            t7.GUI()
+            t7.GUI(fileName,userID,docID)
 
     except getopt.GetoptError as error:
         print(error, "\n")

@@ -56,6 +56,8 @@ def click_top10():
         temp = threading.Thread(target=__display_top_10, args=[input_textbox1.get()])
         temp.start()
 
+def __display_alsolikes(userID, docID, filename):
+    display(t5.alsolikes_sorted(userID, docID, filename))
 
 def click_also_likes():
     display_textbox.delete(0.0, END)
@@ -65,9 +67,11 @@ def click_also_likes():
         display_textbox.insert(END, "No doc ID entered\n")
 
     if (input_textbox1.get() and input_textbox2.get() and input_textbox3.get()):
-        display(t5.alsolikes_sorted(input_textbox3.get(), input_textbox2.get(), input_textbox1.get()))
+        temp = threading.Thread(target=__display_alsolikes, args=[input_textbox3.get(), input_textbox2.get(), input_textbox1.get()])
+        temp.start()
     elif (input_textbox1.get() and input_textbox2.get()):
-        display(t5.alsolikes_sorted("0", input_textbox2.get(), input_textbox1.get()))
+        temp = threading.Thread(target=__display_alsolikes, args=["0", input_textbox2.get(), input_textbox1.get()])
+        temp.start()
 
 
 def click_also_likes_graph():
