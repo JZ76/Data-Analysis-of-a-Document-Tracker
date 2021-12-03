@@ -31,8 +31,10 @@ def top_10_reader(filename):
                 top_10.put([result.get(x), x])
             else:
                 top_10.put(temp)
-    string_display = ""
+    string_display = "Task4:\n"
     i = top_10.qsize()
+    if i == 0:
+        string_display = string_display + "Not found any readers in the file" + filename
     while not top_10.empty():
         temp = top_10.get()
         print("Ranking:", str(i), "\tUser:", temp[1], "\tReading time (mins):", temp[0]/60000)

@@ -88,17 +88,6 @@ def click_also_likes_graph():
         temp = threading.Thread(target=t5.generate_graph, args=("0", input_textbox2.get(), input_textbox1.get()))
         temp.start()
 
-def read_input1():
-    input_text = "-f " + input_textbox1.get()
-    input_text += " -d " + input_textbox2.get()
-    input_text += " -u " + input_textbox3.get()
-    return input_text
-
-def read_input2():
-    input_text = "-f " + input_textbox1.get()
-    input_text += " -d " + input_textbox2.get()
-    return input_text
-        
 def display(result):
     display_textbox.insert(END, result)
 
@@ -121,7 +110,7 @@ def GUI(fileID, userID, docID):
     window = tk.Tk()
     window.title("Document Tracker")
     window.configure(bg="black")
-    window.geometry("900x600")
+    window.geometry("1000x700")
 
 
     Label(window, text="Enter JSON file name:", bg="black", fg="white", font="none 12 bold").grid(row=1, column=0,
@@ -173,7 +162,7 @@ def GUI(fileID, userID, docID):
     Button(window, text="Exit", width=14, command=window_close).grid(row=11, column=1, sticky=W)
 
     global display_textbox
-    display_textbox = Text(window, width=100, height=20, wrap=WORD, bg="white")
+    display_textbox = Text(window, width=125, height=20, wrap=WORD, bg="white")
     display_textbox.grid(row=10, column=0, columnspan=10, sticky=W)
 
     window.mainloop()

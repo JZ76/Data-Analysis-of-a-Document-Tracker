@@ -27,6 +27,8 @@ def plot_histogram(func):
         start_time = time.time()
         results = func(*args, **kwargs)
         spinning.join()
+        if len(results) == 0:
+            print("Nothing found in the file", args[-1])
         plt.figure(figsize=(12, 10), dpi=300)
         plt.bar(list(x[0:20] for x in list(results.keys())), list(results.values()), 0.6, align='center')
         plt.title(func.__name__)

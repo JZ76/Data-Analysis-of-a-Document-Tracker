@@ -70,7 +70,11 @@ def alsolikes_sorted(userID, docID, filename, sort_func=top_10_alsoliked):
     list = sort_func(docID, new_results)
     string_display = temp_display
     temp_display = ""
-    string_display = "Task 5:\n" + string_display + "Sorted liked documents: \n"
+    string_display = "Task 5:\n" + string_display
+    if len(list):
+        string_display  = "Not found given document ID in the filename"
+        return string_display
+    string_display = string_display + "Sorted liked documents: \n"
     string_display = string_display + "\n".join(str(x) for x in list)
     print(string_display)
     return string_display
