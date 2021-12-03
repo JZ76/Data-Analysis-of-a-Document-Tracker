@@ -55,7 +55,6 @@ def also_likes(userID, docID, filename):
     results = feed_json_threadpool.feed_json_into_Threadpool(userID, docID, filename, process_method)
     if not (userID in user_set):
         temp_display = "Given user ID is not in the also likes user list, and will be ignored\n"
-        print(temp_display)
     new_results = {}
     for u in user_set:
         new_results[u] = results.get(u)
@@ -71,8 +70,9 @@ def alsolikes_sorted(userID, docID, filename, sort_func=top_10_alsoliked):
     string_display = temp_display
     temp_display = ""
     string_display = "Task 5:\n" + string_display
-    if len(list):
-        string_display  = "Not found given document ID in the filename"
+    if len(list) == 0:
+        string_display = string_display + "Not found given document ID in the filename"
+        print(string_display)
         return string_display
     string_display = string_display + "Sorted liked documents: \n"
     string_display = string_display + "\n".join(str(x) for x in list)
@@ -85,5 +85,5 @@ def generate_graph(userID, docID, filename):
     return also_likes(userID, docID, filename)
 
 if __name__ == "__main__":
-    alsolikes_sorted("4065369dbee2b902", "140310170010-0000000067dc80801f1df696ae52862b",
+    alsolikes_sorted("4065369dbee2b902", "140310170000067dc80801f1df696ae52862b",
                r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_400k_lines.json")

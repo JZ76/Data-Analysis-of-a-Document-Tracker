@@ -36,14 +36,16 @@ def alsolikes_graph(func):
         for x in results:
             if x == args[0]:
                 w.node(x[-4:], shape='box', style='filled', fillcolor='green', fontcolor='black')
+                w.node(results.get(x)[-4:], style='filled', fillcolor='green', fontcolor='black')
+                w.edge(x[-4:], results.get(x)[-4:])
             else:
                 w.node(x[-4:], shape='box')
-            for d in results.get(x):
-                if d == args[1]:
-                    w.node(d[-4:], style='filled', fillcolor='green', fontcolor='black')
-                else:
-                    w.node(d[-4:])
-                w.edge(x[-4:], d[-4:])
+                for d in results.get(x):
+                    if d == args[1]:
+                        w.node(d[-4:], style='filled', fillcolor='green', fontcolor='black')
+                    else:
+                        w.node(d[-4:])
+                    w.edge(x[-4:], d[-4:])
 
         w.view()
         print("Plotting data duration(s):", time.time() - start_time)
