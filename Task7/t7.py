@@ -108,7 +108,15 @@ def window_close():
     window.destroy()
     exit()
 
-def GUI():
+def GUI(fileID, userID, docID):
+
+    global file_ID
+    global user_ID
+    global doc_ID
+    file_ID = fileID
+    user_ID = userID
+    doc_ID = docID
+
     global window
     window = tk.Tk()
     window.title("Document Tracker")
@@ -121,18 +129,21 @@ def GUI():
     global input_textbox1
     input_textbox1 = Entry(window, width=50, bg="white")
     input_textbox1.grid(row=2, column=0, columnspan=3, sticky=W)
+    input_textbox1.insert(0, fileID)
 
     Label(window, text="Enter Document ID:", bg="black", fg="white", font="none 12 bold").grid(row=3, column=0,
                                                                                                columnspan=2, sticky=W)
     global input_textbox2
     input_textbox2 = Entry(window, width=50, bg="white")
     input_textbox2.grid(row=4, columnspan=3, sticky=W)
+    input_textbox2.insert(0, docID)
 
     Label(window, text="Enter User ID:", bg="black", fg="white", font="none 12 bold").grid(row=5, column=0, columnspan=2, sticky=W)
 
     global input_textbox3
     input_textbox3 = Entry(window, width=50, bg="white")
     input_textbox3.grid(row=6, columnspan=3, sticky=W)
+    input_textbox3.insert(0, userID)
 
     Label(window, text="Select search option:", bg="black", fg="white", font="none 12 bold").grid(row=7, column=0,
                                                                                                   columnspan=2,
