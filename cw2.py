@@ -13,6 +13,7 @@ from Task2 import t2
 from Task3 import t3
 from Task4 import t4
 from Task5 import t5
+from Task7 import t7
 
 def help():
     print("###########################################################################################\n")
@@ -85,7 +86,7 @@ if __name__ == "__main__":
         elif task_id == "6":
             t5.generate_graph(userID, docID, fileName)
         elif task_id == "7":
-            print(task_id)
+            t7.GUI()
 
     except getopt.GetoptError as error:
         print(error, "\n")

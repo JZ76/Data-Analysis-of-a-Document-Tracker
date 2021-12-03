@@ -3,11 +3,13 @@
 
 """ task6 """
 
-import graphviz
-from functools import wraps
-import time
+import itertools
+import sys
 import threading
-import itertools, sys
+import time
+from functools import wraps
+
+import graphviz
 
 
 def alsolikes_graph(func):
@@ -36,13 +38,11 @@ def alsolikes_graph(func):
                 w.node(x[-4:], shape='box', style='filled', fillcolor='green', fontcolor='black')
             else:
                 w.node(x[-4:], shape='box')
-
             for d in results.get(x):
                 if d == args[1]:
                     w.node(d[-4:], style='filled', fillcolor='green', fontcolor='black')
                 else:
                     w.node(d[-4:])
-
                 w.edge(x[-4:], d[-4:])
 
         w.view()

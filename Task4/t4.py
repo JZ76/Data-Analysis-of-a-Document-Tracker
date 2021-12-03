@@ -31,12 +31,16 @@ def top_10_reader(filename):
                 top_10.put([result.get(x), x])
             else:
                 top_10.put(temp)
+    string_display = ""
     i = top_10.qsize()
     while not top_10.empty():
         temp = top_10.get()
         print("Ranking:", str(i), "\tUser:", temp[1], "\tReading time (mins):", temp[0]/60000)
+        string_display = string_display + ("Ranking:" + str(i) + "\tUser:" + temp[1] + "\tReading time (mins):" + str(temp[0]/60000))
+        string_display = string_display + "\n"
         i = i - 1
     print("Sorting data duration(s):", time.time() - start_time)
+    return string_display
 
 
 if __name__ == "__main__":

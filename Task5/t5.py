@@ -8,7 +8,7 @@ from Task6.t6 import alsolikes_graph
 from Feed_ThreadPool import feed_json_threadpool
 
 user_set = set()
-
+temp_display = ""
 
 def process_method(lock, userID, docID, data, result):
     dicts = filter(lambda x: x.get("event_type", "") == "read", data)
@@ -51,21 +51,29 @@ def top_10_alsoliked(docID, result):
 
 def also_likes(userID, docID, filename):
     global user_set
+    global temp_display
     results = feed_json_threadpool.feed_json_into_Threadpool(userID, docID, filename, process_method)
     if not (userID in user_set):
-        print("Given user ID is not in the also likes user list, and will be ignored")
+        temp_display = "Given user ID is not in the also likes user list, and will be ignored\n"
+        print(temp_display)
     new_results = {}
     for u in user_set:
         new_results[u] = results.get(u)
     del results
+    user_set = set()
     return new_results
 
 
 def alsolikes_sorted(userID, docID, filename, sort_func=top_10_alsoliked):
+    global temp_display
     new_results = also_likes(userID, docID, filename)
     list = sort_func(docID, new_results)
-    print("Sorted liked documents: ")
-    print("\n".join(str(x) for x in list))
+    string_display = temp_display
+    temp_display = ""
+    string_display = string_display + "Sorted liked documents: \n"
+    string_display = string_display + "\n".join(str(x) for x in list)
+    print(string_display)
+    return string_display
 
 
 @alsolikes_graph
