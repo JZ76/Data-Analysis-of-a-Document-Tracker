@@ -126,7 +126,7 @@ def GUI(fileID, userID, docID):
     window = tk.Tk()
     window.title("Document Tracker")
     window.configure(bg="black")
-    window.geometry("1000x700")
+    window.geometry("1000x600")
 
     Label(window, text="Enter JSON file name:", bg="black", fg="white", font="none 12 bold").grid(row=1, column=0,
                                                                                                   columnspan=2,
