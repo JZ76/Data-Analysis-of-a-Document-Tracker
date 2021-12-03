@@ -195,4 +195,5 @@ def GUI(fileID, userID, docID):
 
 
 if __name__ == "__main__":
-    GUI()
+    GUI(r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_3m_lines.json", "0","140218134226-85827c1f2cec7cde188f60901c23558d"
+                      )

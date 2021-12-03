@@ -85,5 +85,5 @@ def generate_graph(userID, docID, filename):
     return also_likes(userID, docID, filename)
 
 if __name__ == "__main__":
-    alsolikes_sorted("4065369dbee2b902", "140310170000067dc80801f1df696ae52862b",
-               r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_400k_lines.json")
+    generate_graph("00000000deadbeef", "100806162735-00000000115598650cb8b514246272b5",
+               r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_100k_lines.json")

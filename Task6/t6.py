@@ -31,13 +31,15 @@ def alsolikes_graph(func):
         spinning.join()
         print("\nAnalyzing data duration(s):", time.time() - start_time)
 
-        w = graphviz.Digraph(filename='Also_likes.dot', format="ps")
+        w = graphviz.Digraph(filename='Also_likes.dot', format="pdf")
         start_time = time.time()
         for x in results:
             if x == args[0]:
                 w.node(x[-4:], shape='box', style='filled', fillcolor='green', fontcolor='black')
-                w.node(results.get(x)[-4:], style='filled', fillcolor='green', fontcolor='black')
-                w.edge(x[-4:], results.get(x)[-4:])
+                for d in results.get(x):
+                    if d == args[1]:
+                        w.node(d[-4:], style='filled', fillcolor='green', fontcolor='black')
+                        w.edge(x[-4:], d[-4:])
             else:
                 w.node(x[-4:], shape='box')
                 for d in results.get(x):
