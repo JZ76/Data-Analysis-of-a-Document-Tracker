@@ -39,7 +39,7 @@ def view_by_continent(docID, filename):
     Time complexity: N
     Space complexity: N
     """
-    table = pd.read_csv(os.path.abspath(r"Task/all.csv"))
+    table = pd.read_csv(os.path.abspath(r"Task2/all.csv"))
     country_to_continent = table.set_index('alpha-2')['region'].to_dict()
     results = feed_json_threadpool.feed_json_into_Threadpool(0, docID, filename, process_method)
     new_results = {}
@@ -51,5 +51,5 @@ def view_by_continent(docID, filename):
 
 
 if __name__ == "__main__":
-    view_by_continent("140109173556-a4b921ab7619621709b098aa9de4d736",
+    view_by_continent("130412094241-dfbc7341f63c4ebe9aca443b8f176c5e",
                       r"C:\Users\myper\Desktop\sample_3m_lines.json")
