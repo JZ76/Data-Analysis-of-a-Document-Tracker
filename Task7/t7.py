@@ -117,7 +117,7 @@ def complete_msg():
 
 def message():
     display_textbox.delete(0.0, END)
-    msg = "To use the document track: \n1. Enter the the JSON file path, document ID and use ID (if applicable) " \
+    msg = "To use the document tracker: \n1. Enter the the JSON file path, document ID and use ID (if applicable) " \
           "in the text boxes above. \n2. Then select an search option to process."
     display_textbox.insert(END, msg)
 
