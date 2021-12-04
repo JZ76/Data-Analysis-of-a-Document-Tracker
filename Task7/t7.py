@@ -1,6 +1,7 @@
 #!/usr/bin/evn python3
 # -*- coding: utf-8 -*-
 
+""" task7 will focus on GUI interface"""
 
 import tkinter as tk
 from tkinter import *
@@ -14,6 +15,7 @@ button_row_number = 8
 
 
 def click_country():
+    """function activates on button click, performs task 2a"""
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
@@ -22,8 +24,8 @@ def click_country():
     if input_textbox1.get() and input_textbox2.get():
         t2.view_by_country(input_textbox2.get(), input_textbox1.get())
 
-
 def click_continent():
+    """function activates on button click, performs task 2b"""
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
@@ -34,6 +36,7 @@ def click_continent():
 
 
 def click_all_browser():
+    """function activates on button click, performs task 3a"""
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
@@ -42,6 +45,7 @@ def click_all_browser():
 
 
 def click_main_browser():
+    """function activates on button click, performs task 3b"""
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
@@ -49,11 +53,8 @@ def click_main_browser():
         t3.view_by_browser(input_textbox1.get())
 
 
-def __display_top_10(filename):
-    display(t4.top_10_reader(filename))
-
-
 def click_top10():
+    """function activates on button click, performs task 4 with new thread"""
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
@@ -62,12 +63,14 @@ def click_top10():
         temp = threading.Thread(target=__display_top_10, args=[input_textbox1.get()])
         temp.start()
 
+def __display_top_10(filename):
+    """returns task 4 to output textbox"""
+    display(t4.top_10_reader(filename))
 
-def __display_alsolikes(userID, docID, filename):
-    display(t5.alsolikes_sorted(userID, docID, filename))
 
 
 def click_also_likes():
+    """function activates on button click, performs task 5d with new thread"""
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
@@ -86,6 +89,7 @@ def click_also_likes():
 
 
 def click_also_likes_graph():
+    """function activates on button click, performs ta6 5d with new thread"""
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
@@ -102,20 +106,28 @@ def click_also_likes_graph():
         temp = threading.Thread(target=t5.generate_graph, args=("0", input_textbox2.get(), input_textbox1.get()))
         temp.start()
 
+def __display_alsolikes(userID, docID, filename):
+    """returns task 5d and 6 and to output textbox"""
+    display(t5.alsolikes_sorted(userID, docID, filename))
+
 
 def display(result):
+    """returns input in the output textbox"""
     display_textbox.insert(END, result)
 
 
 def processing_msg():
+    """displays message in the output textbox"""
     display_textbox.insert(END, "Processing request...\n\n")
 
 
 def complete_msg():
+    """displays message in the output textbox"""
     display_textbox.insert(END, "Request complete\n\n")
 
 
 def message():
+    """displays help message in the output textbox"""
     display_textbox.delete(0.0, END)
     msg = "To use the document tracker: \n1. Enter the the JSON file path, document ID and use ID (if applicable) " \
           "in the text boxes above. \n2. Then select an search option to process."
@@ -123,18 +135,13 @@ def message():
 
 
 def window_close():
+    """closes window"""
     window.destroy()
     exit()
 
 
 def GUI(fileID, userID, docID):
-    global file_ID
-    global user_ID
-    global doc_ID
-    file_ID = fileID
-    user_ID = userID
-    doc_ID = docID
-
+    """function called in main to initilise GUI"""
     global window
     window = tk.Tk()
     window.title("Document Tracker")
