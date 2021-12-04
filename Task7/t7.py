@@ -1,3 +1,7 @@
+#!/usr/bin/evn python3
+# -*- coding: utf-8 -*-
+
+
 import tkinter as tk
 from tkinter import *
 from Task2 import t2
@@ -15,9 +19,8 @@ def click_country():
         display_textbox.insert(END, "No filename entered\n")
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
-    if (input_textbox1.get() and input_textbox2.get()):
+    if input_textbox1.get() and input_textbox2.get():
         t2.view_by_country(input_textbox2.get(), input_textbox1.get())
-
 
 
 def click_continent():
@@ -26,8 +29,9 @@ def click_continent():
         display_textbox.insert(END, "No filename entered\n")
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
-    if (input_textbox1.get() and input_textbox2.get()):
+    if input_textbox1.get() and input_textbox2.get():
         t2.view_by_continent(input_textbox2.get(), input_textbox1.get())
+
 
 def click_all_browser():
     display_textbox.delete(0.0, END)
@@ -36,12 +40,14 @@ def click_all_browser():
     else:
         t3.view_by_browser_all(input_textbox1.get())
 
+
 def click_main_browser():
     display_textbox.delete(0.0, END)
     if not input_textbox1.get():
         display_textbox.insert(END, "No filename entered\n")
     else:
         t3.view_by_browser(input_textbox1.get())
+
 
 def __display_top_10(filename):
     display(t4.top_10_reader(filename))
@@ -56,6 +62,7 @@ def click_top10():
         temp = threading.Thread(target=__display_top_10, args=[input_textbox1.get()])
         temp.start()
 
+
 def __display_alsolikes(userID, docID, filename):
     display(t5.alsolikes_sorted(userID, docID, filename))
 
@@ -67,12 +74,12 @@ def click_also_likes():
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
 
-    if (input_textbox1.get() and input_textbox2.get() and input_textbox3.get()):
+    if input_textbox1.get() and input_textbox2.get() and input_textbox3.get():
         processing_msg()
         temp = threading.Thread(target=__display_alsolikes,
                                 args=[input_textbox3.get(), input_textbox2.get(), input_textbox1.get()])
         temp.start()
-    elif (input_textbox1.get() and input_textbox2.get()):
+    elif input_textbox1.get() and input_textbox2.get():
         processing_msg()
         temp = threading.Thread(target=__display_alsolikes, args=["0", input_textbox2.get(), input_textbox1.get()])
         temp.start()
@@ -85,24 +92,28 @@ def click_also_likes_graph():
     if not input_textbox2.get():
         display_textbox.insert(END, "No doc ID entered\n")
 
-    if (input_textbox1.get() and input_textbox2.get() and input_textbox3.get()):
+    if input_textbox1.get() and input_textbox2.get() and input_textbox3.get():
         processing_msg()
         temp = threading.Thread(target=t5.generate_graph,
                                 args=(input_textbox3.get(), input_textbox2.get(), input_textbox1.get()))
         temp.start()
-    elif (input_textbox1.get() and input_textbox2.get()):
+    elif input_textbox1.get() and input_textbox2.get():
         processing_msg()
         temp = threading.Thread(target=t5.generate_graph, args=("0", input_textbox2.get(), input_textbox1.get()))
         temp.start()
 
+
 def display(result):
     display_textbox.insert(END, result)
+
 
 def processing_msg():
     display_textbox.insert(END, "Processing request...\n\n")
 
+
 def complete_msg():
     display_textbox.insert(END, "Request complete\n\n")
+
 
 def message():
     display_textbox.delete(0.0, END)
@@ -110,11 +121,10 @@ def message():
           "in the text boxes above. \n2. Then select an search option to process."
     display_textbox.insert(END, msg)
 
+
 def window_close():
     window.destroy()
     exit()
-
-
 
 
 def GUI(fileID, userID, docID):
@@ -195,4 +205,5 @@ def GUI(fileID, userID, docID):
 
 
 if __name__ == "__main__":
-    GUI(r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_3m_lines.json", "0","140218134226-85827c1f2cec7cde188f60901c23558d")
+    GUI(r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_3m_lines.json", "0",
+        "140218134226-85827c1f2cec7cde188f60901c23558d")

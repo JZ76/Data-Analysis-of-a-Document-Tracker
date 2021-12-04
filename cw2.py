@@ -1,7 +1,7 @@
 #!/usr/bin/evn python3
 # -*- coding: utf-8 -*-
 
-""" main """
+""" Main, the entrance of the program. """
 
 __author__ = "Jiancheng Zhang and Haoran Hong"
 
@@ -14,6 +14,7 @@ from Task3 import t3
 from Task4 import t4
 from Task5 import t5
 from Task7 import t7
+
 
 def help():
     print("###########################################################################################\n")
@@ -45,7 +46,7 @@ if __name__ == "__main__":
                     task_id = opt_value
                 else:
                     print("Unknown task ID", opt_value)
-                    exit()
+                    sys.exit()
             elif opt_name in ('-f', '--filename'):
                 file_exists = os.path.isfile(opt_value)
                 if file_exists:
@@ -55,22 +56,22 @@ if __name__ == "__main__":
                         fileName = os.path.abspath(opt_value)
                     else:
                         print("Wrong file type:", opt_value, "not a json file.")
-                        exit()
+                        sys.exit()
                 else:
                     print("Cannot find file", opt_value, "because it does not exist.")
-                    exit()
+                    sys.exit()
             elif opt_name in ('-h', '--help'):
                 help()
-                exit()
+                sys.exit()
             elif opt_name in ('-q', '--quit'):
-                exit()
-
+                sys.exit()
+        # fileName and task id must have
         if fileName == "":
             print("No file input!")
-            exit()
+            sys.exit()
         if task_id == 0:
             print("No given task ID!")
-            exit()
+            sys.exit()
         if task_id == "2a":
             t2.view_by_country(docID, fileName)
         elif task_id == "2b":
@@ -86,9 +87,9 @@ if __name__ == "__main__":
         elif task_id == "6":
             t5.generate_graph(userID, docID, fileName)
         elif task_id == "7":
-            t7.GUI(fileName,userID,docID)
+            t7.GUI(fileName, userID, docID)
 
     except getopt.GetoptError as error:
         print(error, "\n")
         help()
-        sys.exit(2)
+        sys.exit(1)

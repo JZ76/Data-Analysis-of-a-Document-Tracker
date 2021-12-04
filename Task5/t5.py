@@ -1,46 +1,53 @@
 #!/usr/bin/evn python3
 # -*- coding: utf-8 -*-
 
-""" task5 """
+""" task5 will use Document ID and User ID, but user ID is optional"""
 
-from queue import PriorityQueue
+from TopN import topn
 from Task6.t6 import alsolikes_graph
 from Feed_ThreadPool import feed_json_threadpool
 
+# shared by all threads and methods
 user_set = set()
 temp_display = ""
 
+
 def process_method(lock, userID, docID, data, result):
+    """
+    Two things to record, one is a dictionary that store every users' read list, one user will map to one or more doc.
+    Another is a user list that store the user have read the given docID.
+    """
     dicts = filter(lambda x: x.get("event_type", "") == "read", data)
     global user_set
-    for dict in dicts:
+    for dic in dicts:
         lock.acquire()
-        if dict.get("subject_doc_id") == docID:
-            user_set.add(dict.get("visitor_uuid"))
-        if dict.get("visitor_uuid") in result:
-            result.get(dict.get("visitor_uuid")).add(dict.get("subject_doc_id"))
+        # user list will use set to prevent duplicated userID
+        if dic.get("subject_doc_id") == docID:
+            user_set.add(dic.get("visitor_uuid"))
+        if dic.get("visitor_uuid") in result:
+            # if the docID already in the user read list, do nothing
+            result.get(dic.get("visitor_uuid")).add(dic.get("subject_doc_id"))
         else:
-            result[dict.get("visitor_uuid")] = {dict.get("subject_doc_id")}
+            # creat a new set, and put in the new docID
+            result[dic.get("visitor_uuid")] = {dic.get("subject_doc_id")}
         lock.release()
 
 
-def top_10_alsoliked(docID, result):
+def top_10_alsoliked(userID, docID, result):
     answer = []
     count = {}
-    for x in result:
-        for d in result.get(x):
-            if d != docID:
+    # count how many a document read by users in the result
+    if not (userID in result):
+        for x in result:
+            for d in result.get(x):
                 count[d] = count.get(d, 0) + 1
-    top_10 = PriorityQueue(10)
-    for x in count:
-        if not top_10.full():
-            top_10.put([count.get(x), x])
-        else:
-            temp = top_10.get()
-            if count.get(x) > temp[0]:
-                top_10.put([count.get(x), x])
-            else:
-                top_10.put(temp)
+    else:
+        del result[userID]
+        for x in result:
+            for d in result.get(x):
+                if d != docID:
+                    count[d] = count.get(d, 0) + 1
+    top_10 = topn.top_N(10, count)
     i = top_10.qsize()
     while not top_10.empty():
         temp = top_10.get()
@@ -56,34 +63,54 @@ def also_likes(userID, docID, filename):
     if not (userID in user_set):
         temp_display = "Given user ID is not in the also likes user list, and will be ignored\n"
     new_results = {}
+    # get the users that read docID
     for u in user_set:
         new_results[u] = results.get(u)
     del results
+    # reset, otherwise still store the result and rise error in GUI
     user_set = set()
+    # conner case
+    if len(new_results) == 0:
+        temp_display = temp_display + "There is no user read this document " + docID + " in the file " + filename + "\n"
+    elif len(new_results) == 1:
+        temp_display = temp_display + "There is only one user read this document!\n"
     return new_results
 
 
 def alsolikes_sorted(userID, docID, filename, sort_func=top_10_alsoliked):
+    """
+    Time complexity: depends on the sorting function
+    Space complexity: depends on the sorting function
+    """
     global temp_display
+    print("Start analyzing data...")
     new_results = also_likes(userID, docID, filename)
-    list = sort_func(docID, new_results)
     string_display = temp_display
     temp_display = ""
     string_display = "Task 5:\n" + string_display
-    if len(list) == 0:
-        string_display = string_display + "Not found given document ID in the filename"
-        print(string_display)
-        return string_display
-    string_display = string_display + "Sorted liked documents: \n"
-    string_display = string_display + "\n".join(str(x) for x in list)
+    if len(new_results) > 0:
+        # apply sorting algorithm to the result
+        list = sort_func(userID, docID, new_results)
+        string_display = string_display + "Sorted also liked documents: \n"
+        string_display = string_display + "\n".join(str(x) for x in list)
     print(string_display)
     return string_display
 
 
 @alsolikes_graph
 def generate_graph(userID, docID, filename):
-    return also_likes(userID, docID, filename)
+    """
+    This is Task6, but we have to use also_likes function from Task5, so, we put part of task6 function here
+    Time complexity: N
+    Space complexity: N
+    """
+    global temp_display
+    t = also_likes(userID, docID, filename)
+    print(temp_display)
+    temp_display = ""
+    return t
+
 
 if __name__ == "__main__":
-    generate_graph("00000000deadbeef", "100806162735-00000000115598650cb8b514246272b5",
-               r"C:\Users\myper\Desktop\Industrial Programming\Data-Analysis-of-a-Document-Tracker\sample_100k_lines.json")
+    alsolikes_sorted('97c0363c52a07020', "140109173556-a4b921ab7619621709b098aa9de4d736",
+                   r"C:\Users\myper\Desktop\sample_3m_lines.json")
