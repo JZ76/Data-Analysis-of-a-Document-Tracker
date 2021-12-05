@@ -5,7 +5,7 @@ import sys
 from functools import wraps
 
 
-class Salty_Exceptin(Exception):
+class Salty_Exception(Exception):
     """check the length of name. """
 
     def __str__(self):
@@ -19,8 +19,8 @@ def exception(func):
         try:
             results = func(*args, **kwargs)
             if len(results) == 0:
-                raise Salty_Exceptin
-        except Salty_Exceptin as e:
+                raise Salty_Exception
+        except Salty_Exception as e:
             print("\n", e, args[-1])
             sys.exit(1)
         finally:

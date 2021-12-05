@@ -8,7 +8,10 @@ from queue import PriorityQueue
 
 
 def top_N(n, result):
-    """ :parameter n: make this function more reusable."""
+    """
+    Sorry for the code looks like Java or C++
+    :parameter n: make this function more reusable.
+    """
     top_n = PriorityQueue(n)
     for x in result:
         if not top_n.full():

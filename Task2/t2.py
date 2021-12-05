@@ -51,5 +51,5 @@ def view_by_continent(docID, filename):
 
 
 if __name__ == "__main__":
-    view_by_continent("130412094241-dfbc7341f63c4ebe9aca443b8f176c5e",
+    view_by_continent("130412094241-dfbc7341f63c4ebe9aca443b8f1",
                       r"C:\Users\myper\Desktop\sample_3m_lines.json")
