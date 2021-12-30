@@ -1,0 +1,143 @@
+F21SC: Feedback on Coursework 2
+
+-*- mode: outline; outline-regexp: "^To:" -*-
+
+F20SC/F21SC: Feedback on Coursework 2
+
+This document is a personalised coursework feedback.
+The first section covers general comments, recurring across submissions.
+The second part contains comments specific to your submission, with the overall marks at the end.
+
+All marks are out of 100
+The weighting of this CW is 50%
+
+The split of marks is by: requirements / report / code qual / initiative&professionalism / screencast
+F20SC out of: 55 / 15 / 15 / 10 / 5
+F21SC out of: 50 / 20 / 15 / 10 / 5
+
+General:
+
+F20SC/F21SC: Feedback on Coursework 2 (Python)
+
+For the second coursework (CW2) there was (mostly) good up-take in feedback from CW1 both in terms
+of report and code quality which is good to see. In some cases submissions were a bit sketchy,
+probably due to time issues in finishing the coursework. But the foundational design of the code
+showed improvements. Below are more specific comments on report and code quality, for the
+design of applications using a scripting language (which is different from just small-scale scripts).
+
+The quality of the report has improved as well, which is good to see. Keep in mind that this is
+training for the MSc/Hons project as well, where you'll have to explain your implementation. Make
+sure that you start the discussion of the code with describing the overall class design. Although
+this is less of an issue for a small programming exercise like this, it is important for the
+programming that you are doing in the MSc or Honours project. Use established notation, in
+particular UML, to describe class design, but also method interfaces and dependencies that exist in
+the code. The testing was in some cases very narrow (I appreciate that this is again an effort
+issue, so I didn't deduct a lot for that).
+
+It is very important that the conclusion summarises the main lessons learnt in terms of programming,
+and that it reflects on the usefulness of libraries and language features used in the implementation.
+Again, distilling such general messages from the bulk of the work is even more important for the
+thesis work, where you'll have to present your work to a 2nd reader, who might not be familiar
+with details of the actual implementation or technologies. Finally, the report, as well as the
+MSc/Honours thesis, needs to address Professional, Legal, Ethical and Social issues related to the
+implementation (the project marking scheme has an explicit entry for these issues). For this CW this
+means you need to state where the data is coming from, i.e. refer to the issuu website, summarise
+shortly what it is providing, and discuss under which copyright/usage policy the data is provided.
+For the CW, a simple statement of free-to-use is sufficient, for the thesis this needs to be
+more detailed, and also needs to cover copyright issues of third-party code that you use, and
+clearly state the copyright of YOUR code as well.
+Additionally, for libraries that you used in the implementation, also state the copyright under
+which it is distributed, and also specify the author(s), where available.
+
+In terms of code quality, here are a couple of recurring problems (linked using the words in caps).
+Several submissions exhibited considerable code duplication (DUP), in particular when counting matches. Use
+methods to pull out and re-use code for this purpose. Also, it's poor separation (SEP) to have all code
+in just one file. Separate it by functionality and aim to use classes to improve code design.
+As in the previous CW, in many cases the interfaces (INTFC) for main methods in the code are poorly
+specified, and in some cases the methods have no arguments at all and work on global variables.
+This makes it very hard to judge what the method is depending on, and thus makes it hard to extend
+the code later. You should think carefully about, what is the input and what is the output of the
+method that you are implementing, define appropriate arguments to the method, and specify their
+meaning together with the role of the method. For the latter, in Python you should use a docu-string (DOCU)
+just after the method name, to get help on the method from inside the Python interpreter.
+
+
+Specific:
+
+Specific comments to hhh2000
+Cc: jz76
+Student: Haoran Hong and Jiancheng ZHANG
+Course: F21SC
+CW2: Data Analytics
+
+Report(19/20):
+Intro(2/2): good coverage of short spec, goals, and env
+Reqs(1/1): ok
+Design(3/3): should cover GUI, code and data structure design
+good code structure by class and functionality
+good usage of ThreadPool for performance, with a discussion of limitations
+good choice and discussion of data structures (important for PERFormance!)
+some discussion of error handling for code security
+Users(2/2): ok
+Developers(1.5/2):
+good discussion of code structure
+detailed discussion of performance issues
+should give a discussion of method interfaces, discussing meaning of param, result (docu-strings)
+Testing(2/2): some systematic testing
+Relf(2/2):
+good reflection on language
+limited on suitability for data analytics,
+good on adv lang features;
+also covers sys prging vs scripting;
+Relf on CW1(2/2): good
+Concl(2/2): good reflection on project and limitations of language
+Refs(1/1): some references, and also used in the body of the report
+Other(0.5/1): good report
+should refer to issuu.com for data-sets and copy-right
+
+
+Code(14/15):
+good separation into files and classes, by fctality
+good choice of data structures
+good abstraction (use of methods)
+uses several advanced language features (decorators, multi-threading, h-o fcts)
+good discussion of method interfaces, discussing meaning of param, result (docu-strings)
+v good PERF design, well done!
+mostly ok about secure coding: several custom exceptions; some checks for input args; no type hints though
+shouldn't hard-code browser names into the app like this:
+if Opera.search(string):
+answer = "Opera"
+good comments
+avoid top-level code; just define classes and methods,
+some author-ship and good copy-right statement at the beginning of the code
+
+
+
+
+Requirements(48/50):
+T1(2/2): Python 3
+T2a(6/6): Views by country: ok
+T2b(6/6): Views by continent: ok
+T3a(4/4): Views by browser: ok
+T3b(3/4): Views by browsername: ok, but hard-coded browser names
+T4(3/3): Most avid reader list: ok
+T5(12/12): also-likes list (parametric in sorting: yes): ok
+T6(4/4): also-likes graph: ok
+T7(3/3): GUI interface: ok
+T8(3/3): command-line interface: ok
+T9(2/3): Extras: some
+
+PERF: v good; 26.651s for 1m (on an i5), 18.344s on 3m/2 input
+
+Initiative(8/10):
+strong submission; good report and code; some extras; good PERF
+
+Screencast(5/5): ok
+
+Overall:
+Out of: 50 / 20 / 15 / 10 / 5
+Split: 48 / 19 / 14 / 8 / 5
+Marks: 94
+
+
+
